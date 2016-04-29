@@ -20,6 +20,10 @@ define( 'STOCKISTS_VERSION', '1.0.0' );
 define( 'STOCKISTS_MINIMUM_WP_VERSION', '4.0' );
 define( 'STOCKIST_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'STOCKIST_PLUGIN_FILE', __FILE__ );
+define( 'STOCKIST_PLUGIN_ASSETS', STOCKIST_PLUGIN_DIR . 'assets/' );
+define( 'STOCKIST_PLUGIN_JS_PATH',  STOCKIST_PLUGIN_ASSETS . 'js' );
+define( 'STOCKIST_PLUGIN_CSS_PATH',  STOCKIST_PLUGIN_ASSETS . 'css' );
+define( 'STOCKIST_PLUGIN_VIEWS_PATH',  STOCKIST_PLUGIN_ASSETS . 'views' );
 
 // LOAD CLASSES JIT
 spl_autoload_register( function( $className )
