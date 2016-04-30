@@ -1,0 +1,135 @@
+*{
+    table-layout:fixed !important;
+}
+
+.wrapper{
+    padding:20px;
+}
+
+.stk-panel{
+    background-color:#fff;
+    border-radius:2px;
+    overflow:hidden;
+    margin:20px 0 0 0;
+    -webkit-box-shadow: 0px 8px 15px -8px rgba(0,0,0,0.42);
+    -moz-box-shadow: 0px 8px 15px -8px rgba(0,0,0,0.42);
+    box-shadow: 0px 8px 15px -8px rgba(0,0,0,0.42);
+    max-width:1200px;
+}
+
+.stk-panel header{
+    padding:5px 15px;
+    border-bottom:2px solid #527cff;
+    background-color: #6a8dff;
+}
+
+.stk-panel h2{
+    color:#fff;
+}
+
+.stk-panel .panel-body{
+    padding:15px;
+}
+
+
+[data-stk-form-placeholder]{
+    display: table;
+    width:100%;
+}
+
+#stockists_meta .inside{
+    margin:0;
+    padding:0;
+}
+
+.stk-form-fields input,
+.stk-form-fields select{
+    margin:0;
+    padding:12px 10px;
+    display:block;
+    width:100%;
+    max-width:100%;
+}
+
+.stk-form-fields > input:first-child{
+    border:0;
+    padding:15px 10px;
+    font-size:16px;
+}
+
+.stk-form-fields input:first-child:focus{
+    box-shadow:0;
+    border-color:#eee;
+}
+
+.stk-form-fields fieldset{
+    display: table;
+    width:100%;
+    table-layout:fixed !important;
+    background-color:#f9f9f9;
+}
+
+.stk-form-fields fieldset div{
+    display: table-cell;
+    padding:15px;
+    width:33%;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.new-checkbox input[type="checkbox"],
+.new-checkbox input[type="radio"]{
+    display: none;
+}
+
+.checkbox-overwrite-parent{
+    display: inline-block;
+    border:2px solid #3e8eff;
+    background-color:#fff;
+    height:18px;
+    width:18px;
+    border-radius:200px;
+    overflow:hidden;
+    vertical-align: middle;
+    margin-right:3px;
+    position: relative;
+    top:-2px;
+    cursor:pointer;
+}
+
+.new-checkbox input[type="checkbox"] + div .checkbox-overwrite,
+.new-checkbox input[type="radio"] + div .checkbox-overwrite  {
+    background-color:#3e8eff;
+    width:0;
+    height:0;
+}
+
+.new-checkbox input[type="checkbox"]:checked + div .checkbox-overwrite,
+.new-checkbox input[type="radio"]:checked + div .checkbox-overwrite {
+    width:12px;
+    height:12px;
+    margin:3px;
+    border-radius:200px;
+}
+
+.new-checkbox small{
+    font-size:16px;
+}
+
+
+.button.button-primary{
+    background-color: #6a8dff;
+    text-shadow:none !important;
+    font-size:16px;
+    padding:6px 14px;
+    height:auto;
+}
+
+.button.button-primary:hover{
+    background-color: #4670ff;
+}

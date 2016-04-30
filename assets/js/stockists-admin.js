@@ -3,9 +3,12 @@
   $(document ).ready(function()
   {
     $.extend({
+      maps:{
+
+      },
 
     })
 
   })
 
-})( jQuery.noConflict(), window )
+})( jQuery, window )
