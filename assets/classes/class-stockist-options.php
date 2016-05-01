@@ -37,6 +37,11 @@ class Stockist_Options
     $this->loadOptions();
   }
 
+  public function initActions()
+  {
+    add_action( 'wp_ajax_save_api_options', array( $this, 'stkSaveApiOptions' ) );
+  }
+
   public function loadOptions()
   {
     $options = array();
@@ -103,6 +108,12 @@ class Stockist_Options
 
   public function stkFieldRenderer( $args )
   {
-    var_dump( $args );
+
+  }
+
+  public function stkSaveApiOptions()
+  {
+    echo 'asdwgtryghgf';
+    die();
   }
 }

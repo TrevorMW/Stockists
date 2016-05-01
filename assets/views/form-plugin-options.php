@@ -15,7 +15,7 @@ $options = new Stockist_Options();  ?>
   <h2><?php echo Stockists::getPluginName() ?> Settings</h2>
     <?php wp_nonce_field(); ?>
     <fieldset class="stk-panel">
-      <form method="post" class="stk-options" data-ajax-form>
+      <form method="post" class="stk-options" data-ajax-form data-action="save_api_options">
         <header class="">
           <h2>Google Maps API Data</h2>
         </header>
@@ -34,10 +34,12 @@ $options = new Stockist_Options();  ?>
                      name="stk_google_maps_server_api_key"
                      value="<?php echo $options->loadedOptions['stk_google_maps_server_api_key'];?>" />
             </li>
-            <li class="half ">
+
+            <li class="full clear ">
               <label>Google Maps API Key:</label>
-              <input type="text" name="" value="" />
+              <textarea name="stk_google_maps_theme_json"><?php echo $options->loadedOptions['stk_google_maps_theme_json'];?></textarea>
             </li>
+
             <li class="submit">
               <button type="submit" class="button button-primary">Save API Settings</button>
             </li>
@@ -45,8 +47,5 @@ $options = new Stockist_Options();  ?>
         </div>
       </form>
     </fieldset>
-
-
-
  </div>
 

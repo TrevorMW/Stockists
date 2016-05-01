@@ -26,6 +26,9 @@ class Stockists
       add_action( 'admin_init', array( $optionBuilder, 'stkBuildOptionsFields' ) );
       add_action( 'admin_menu', array( $optionBuilder, 'stkBuildOptions' ) );
     }
+
+    $options = new Stockist_Options();
+    $options->initActions();
   }
 
   public function stkActivate()
