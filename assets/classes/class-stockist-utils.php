@@ -7,11 +7,16 @@
  * Time: 9:08 PM
  */
 
-class StockistUtils
+class Stockist_Utils
 {
-  public static function get_plugin_template( $path, $fileName, $data )
+  public static function loadPluginView( $name )
   {
+    $file = STOCKIST_PLUGIN_DIR . 'assets/views/' . $name ;
 
+    if( file_exists( $file ) )
+    {
+      require_once( $file );
+    }
   }
 
   public static function mapsKeySet()

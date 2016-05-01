@@ -1,5 +1,7 @@
 *{
-    table-layout:fixed !important;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
 }
 
 .wrapper{
@@ -16,77 +18,89 @@
     box-shadow: 0px 8px 15px -8px rgba(0,0,0,0.42);
     max-width:1200px;
 }
-
 .stk-panel header{
     padding:5px 15px;
     border-bottom:2px solid #527cff;
     background-color: #6a8dff;
 }
-
 .stk-panel h2{
     color:#fff;
 }
-
 .stk-panel .panel-body{
     padding:15px;
+    position:relative;
 }
 
-
-[data-stk-form-placeholder]{
+[data-ajax-overlay]{
+    position:absolute;
+    top:0;
+    left:0;
+    border:1px solid red;
     display: table;
     width:100%;
+    text-align:center;
+}
+
+[data-ajax-overlay] > div{
+    display:none;
+    opacity:0;
+}
+[data-ajax-overlay].processing > div{
+    display: table-cell;
+    width:100%;
+    height:100%;
+    vertical-align: middle;
+    font-size:35px;
+    color:#555;
+}
+[data-ajax-overlay].visible > div {
+    opacity:1;
+    background-color:rgba(255, 255, 255, 0.75);
 }
 
 #stockists_meta .inside{
     margin:0;
     padding:0;
 }
-
 .stk-form-fields input,
-.stk-form-fields select{
+.stk-form-fields select,
+.panel-body input,
+.panel-body select{
     margin:0;
     padding:12px 10px;
     display:block;
     width:100%;
     max-width:100%;
 }
-
 .stk-form-fields > input:first-child{
     border:0;
     padding:15px 10px;
     font-size:16px;
 }
-
 .stk-form-fields input:first-child:focus{
     box-shadow:0;
     border-color:#eee;
 }
-
 .stk-form-fields fieldset{
     display: table;
     width:100%;
     table-layout:fixed !important;
     background-color:#f9f9f9;
 }
-
 .stk-form-fields fieldset div{
     display: table-cell;
     padding:15px;
     width:33%;
 }
-
-
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 .new-checkbox input[type="checkbox"],
 .new-checkbox input[type="radio"]{
     display: none;
 }
-
 .checkbox-overwrite-parent{
     display: inline-block;
     border:2px solid #3e8eff;
@@ -101,35 +115,67 @@ input[type=number]::-webkit-outer-spin-button {
     top:-2px;
     cursor:pointer;
 }
-
 .new-checkbox input[type="checkbox"] + div .checkbox-overwrite,
 .new-checkbox input[type="radio"] + div .checkbox-overwrite  {
     background-color:#3e8eff;
     width:0;
     height:0;
 }
-
 .new-checkbox input[type="checkbox"]:checked + div .checkbox-overwrite,
 .new-checkbox input[type="radio"]:checked + div .checkbox-overwrite {
-    width:12px;
-    height:12px;
-    margin:3px;
+    width: 10px;
+    height: 10px;
+    margin: 2px;
     border-radius:200px;
 }
-
 .new-checkbox small{
     font-size:16px;
 }
-
-
-.button.button-primary{
+.wrap .button.button-primary{
     background-color: #6a8dff;
     text-shadow:none !important;
     font-size:16px;
     padding:6px 14px;
     height:auto;
 }
-
 .button.button-primary:hover{
     background-color: #4670ff;
+}
+
+.panel-body ul {
+    margin: 0;
+    padding: 0;
+}
+.panel-body ul:after{
+    clear:both;
+    display:table;
+    content:'';
+    position:relative;
+}
+.panel-body li{
+    float:left;
+    width:100%;
+    padding-right:25px;
+    margin-bottom:15px;
+}
+.panel-body li label{
+    display:block;
+    width:100%;
+    font-size:16px;
+    line-height:36px;
+}
+.panel-body li.half{
+    width:50%;
+}
+.panel-body li.right{
+    float:right;
+    padding-right:0;
+}
+.panel-body li.submit{
+    text-align:right;
+    margin:0;
+    padding:0;
+}
+.panel-body input{
+    width:100%;
 }
