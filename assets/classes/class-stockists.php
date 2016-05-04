@@ -29,6 +29,16 @@ class Stockists
 
     $options = new Stockist_Options();
     $options->initActions();
+
+    if( $option->loadedOptions['stk_google_maps_server_api_key'] != null )
+    {
+      wp_register_script( 'stockistsMaps',
+        'https://maps.googleapis.com/maps/api/js?key='.$option->loadedOptions['stk_google_maps_server_api_key']
+        .'&callback=fireLoadMap',
+        array('jquery'),
+        null,
+        true );
+    }
   }
 
   public function stkActivate()
@@ -101,6 +111,7 @@ class Stockists
     wp_register_style( 'fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' );
 
     wp_enqueue_script( 'stockistsAdminJS' );
+    wp_enqueue_script( 'stockistsMaps' );
     wp_enqueue_style( 'fontawesome' );
     wp_enqueue_style( 'stockistsAdminCSS' );
 
@@ -108,6 +119,6 @@ class Stockists
 
   public function stkFrontendScripts()
   {
-
+    wp_enqueue_script( 'stockistsMaps' );
   }
 }

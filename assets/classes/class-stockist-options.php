@@ -16,19 +16,16 @@ class Stockist_Options
     $this->optionNames = [
       'stk_google_maps_js_api_key' => [
         'type'           => 'text',
-        'value'          => null,
         'label'          => 'Google Maps API Key (JS):',
         'settings_group' => ''
       ],
       'stk_google_maps_server_api_key' => [
         'type'           => 'text',
-        'value'          => null,
         'label'          => 'Google Maps Server API Key (Server):',
         'settings_group' => ''
       ],
       'stk_google_maps_theme_json' => [
         'type'           => 'textarea',
-        'value'          => null,
         'label'          => 'Google Maps API Key (JS):',
         'settings_group' => ''
       ]
@@ -54,8 +51,7 @@ class Stockist_Options
 
         if( $optionVal != false )
         {
-          $values['value']        = $optionVal;
-          $options[ $optionName ] =  $optionVal;
+          $options[ $optionName ] = $optionVal;
         }
       }
     }
@@ -113,7 +109,29 @@ class Stockist_Options
 
   public function stkSaveApiOptions()
   {
-    echo 'asdwgtryghgf';
+    $data = $_POST;
+    $resp = new Ajax_Response( $data['action'], true );
+
+    if( is_array( $data['stk_settings'] ) && isset( $data['stk_settings'] ) )
+    {
+      foreach( $data['stk_settings'] as $optionKey => $optionData )
+      {
+        $dataType = json_decode( stripslashes( $optionData ) );
+
+        if( is_array( $dataType ) )
+        {
+          $data = json_decode( stripslashes( $optionData ) );
+        }
+        else
+        {
+          $data = $optionData;
+        }
+
+        update_option( $optionKey, $data );
+      }
+    }
+
+    echo $resp->encode_response();
     die();
   }
 }

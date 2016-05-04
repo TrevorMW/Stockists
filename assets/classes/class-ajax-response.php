@@ -14,23 +14,15 @@ class Ajax_Response
   public $callback;
   public $action;
 
-  public function __construct( $action = null, $callback = null )
+  public function __construct( $action = null, $callback = false )
   {
     $this->status   = false;
     $this->message  = null;
     $this->data     = null;
-    $this->callback = null;
+    $this->action   = $action;
 
-    if( $action != null )
-      $this->action = $action;
-
-    if( $callback != null )
-      $this->callback = $callback;
-  }
-
-  public function set_action_id( $action )
-  {
-    $this->action = $action;
+    if( !$callback )
+      $this->callback = $action;
   }
 
   public function set_message( $msg )
@@ -46,11 +38,6 @@ class Ajax_Response
   public function set_status( $status )
   {
     $this->status = $status;
-  }
-
-  public function set_callback_function( $callback )
-  {
-    $this->callback = $callback;
   }
 
   public function encode_response()
