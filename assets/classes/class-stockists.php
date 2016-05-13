@@ -12,33 +12,21 @@ class Stockists
 
   public function init( $path, $inst )
   {
+    $options  = new Stockist_Options();
+    $options->initActions();
+
     register_activation_hook( $path, array( $inst, 'stkActivate' ) );
     register_deactivation_hook( $path, array( $inst, 'stkDeactivate' ) );
+
+    if( is_admin() )
+    {
+      add_action( 'admin_init', array( $options, 'stkBuildOptionsFields' ) );
+      add_action( 'admin_menu', array( $options, 'stkBuildOptions' ) );
+    }
 
     add_action( 'init', array( $inst, 'stkRegisterPostTypes' ) );
     add_action( 'wp_enqueue_scripts', array( $inst, 'stkFrontendScripts') );
     add_action( 'admin_enqueue_scripts', array( $inst, 'stkAdminScripts') );
-
-    if( is_admin() )
-    {
-      $optionBuilder = new Stockist_Options();
-
-      add_action( 'admin_init', array( $optionBuilder, 'stkBuildOptionsFields' ) );
-      add_action( 'admin_menu', array( $optionBuilder, 'stkBuildOptions' ) );
-    }
-
-    $options = new Stockist_Options();
-    $options->initActions();
-
-    if( $option->loadedOptions['stk_google_maps_server_api_key'] != null )
-    {
-      wp_register_script( 'stockistsMaps',
-        'https://maps.googleapis.com/maps/api/js?key='.$option->loadedOptions['stk_google_maps_server_api_key']
-        .'&callback=fireLoadMap',
-        array('jquery'),
-        null,
-        true );
-    }
   }
 
   public function stkActivate()
@@ -97,18 +85,22 @@ class Stockists
 
   public function stkAdminScripts()
   {
-    global $post;
+    $option = new Stockist_Options();
 
     wp_register_script( 'stockistsAdminJS',
                         STOCKIST_PLUGIN_JS_PATH.'/stockists-admin.js',
                         array('jquery'),
                         null,
                         true );
-
     wp_register_style( 'stockistsAdminCSS',
                         STOCKIST_PLUGIN_CSS_PATH.'/stockists-admin.css' );
-
     wp_register_style( 'fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' );
+    wp_register_script( 'stockistsMaps',
+      'https://maps.googleapis.com/maps/api/js?key='.$option->loadedOptions['stk_google_maps_js_api_key']
+      .'&callback=fireLoadMap',
+      array('jquery'),
+      null,
+      true );
 
     wp_enqueue_script( 'stockistsAdminJS' );
     wp_enqueue_script( 'stockistsMaps' );
@@ -119,6 +111,14 @@ class Stockists
 
   public function stkFrontendScripts()
   {
+    $option = new Stockist_Options();
+
+    wp_register_script( 'stockistsMaps',
+      'https://maps.googleapis.com/maps/api/js?key='.$option->loadedOptions['stk_google_maps_js_api_key']
+      .'&callback=fireLoadMap',
+      array('jquery'),
+      null,
+      true );
     wp_enqueue_script( 'stockistsMaps' );
   }
 }

@@ -63,7 +63,7 @@
             this.fields       = this.el.find('[data-validate]')
           }
 
-          $.ajax_overlay.init( $(this.el ).find('[data-ajax-overlay]') );
+          $.ajax_overlay.init( $(this.el).find('[data-ajax-overlay]') );
         },
         make_request: function( instance )
         {
@@ -73,7 +73,7 @@
           $.validation.validate_form( instance );
           $(document).trigger('ajax_overlay:show');
 
-          var formData = this.el.serialize();
+          var formData = this.el.serialize() + '&action=' + this.action ;
 
           if( this.form_valid )
           {
@@ -89,8 +89,6 @@
                 }, 1000 );
 
                 var newData = $.parseJSON( response );
-
-                console.log( newData )
 
                 if ( $.callback_bank.callbacks.hasOwnProperty( newData.callback ) )
                   $.callback_bank.callbacks[ newData.callback ]( newData );
@@ -206,6 +204,11 @@
         $.wp_ajax.make_request( $.wp_ajax );
       });
 
+      $(document ).on( 'change', '[data-ajax-select]', function()
+      {
+        $.wp_ajax.init( $(this) );
+        $.wp_ajax.make_request( $.wp_ajax );
+      })
 
     });
 

@@ -19,24 +19,23 @@ class Stockist_Options
         'label'          => 'Google Maps API Key (JS):',
         'settings_group' => ''
       ],
-      'stk_google_maps_server_api_key' => [
-        'type'           => 'text',
-        'label'          => 'Google Maps Server API Key (Server):',
-        'settings_group' => ''
-      ],
       'stk_google_maps_theme_json' => [
         'type'           => 'textarea',
         'label'          => 'Google Maps API Key (JS):',
         'settings_group' => ''
       ]
     ];
-
     $this->loadOptions();
   }
 
   public function initActions()
   {
+    $stockist = new Stockist();
+    $stockist->initActions();
+
     add_action( 'wp_ajax_save_api_options', array( $this, 'stkSaveApiOptions' ) );
+    add_action( 'wp_ajax_save_api_options', array( $this, 'save_stk_data_options' ) );
+    add_action( 'wp_ajax_save_api_options', array( $this, 'save_stk_layout_options' ) );
   }
 
   public function loadOptions()
@@ -110,7 +109,7 @@ class Stockist_Options
   public function stkSaveApiOptions()
   {
     $data = $_POST;
-    $resp = new Ajax_Response( $data['action'], true );
+    $resp = new Ajax_Response( $data['action_id'], true );
 
     if( is_array( $data['stk_settings'] ) && isset( $data['stk_settings'] ) )
     {
