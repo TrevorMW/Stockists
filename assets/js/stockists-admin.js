@@ -26,6 +26,11 @@
             this.update_lat = lat
             this.update_lng = lng
           }
+
+          $(document).on( 'maps:load', this, function( e )
+          {
+
+          })
         },
         set_draggable_point:function()
         {
@@ -53,6 +58,7 @@
         action:'',
         form_valid:true,
         fields:null,
+        target:null,
         init:function( el )
         {
           if( el[0] != undefined )
@@ -60,6 +66,7 @@
             this.el           = el;
             this.action       = el.data('action');
             this.pre_callback = el.data('pre-callback');
+            this.target       = $('[data-'+ el.data('target') + ']');
             this.fields       = this.el.find('[data-validate]')
           }
 
@@ -91,7 +98,7 @@
                 var newData = $.parseJSON( response );
 
                 if ( $.callback_bank.callbacks.hasOwnProperty( newData.callback ) )
-                  $.callback_bank.callbacks[ newData.callback ]( newData );
+                  $.callback_bank.callbacks[ newData.callback ]( newData, $.wp_ajax );
               }
             })
           }
@@ -106,9 +113,27 @@
         {
 
         },
-        callbacks:
-        {
+        callbacks:{
+          loadStockistMetaForm:function( resp, inst )
+          {
+            if( inst.target != undefined )
+            {
+              var data = '';
 
+              if( resp.status )
+              {
+                data = resp.data.stockist_meta_fields;
+              }
+              else
+              {
+                data = 'Could not load stockist fields. Please try again.';
+              }
+              inst.target.html('')
+              inst.target.html( data )
+
+              $(document).trigger('maps:load')
+            }
+          }
         }
       },
       ajax_overlay: {
@@ -207,6 +232,7 @@
       $(document ).on( 'change', '[data-ajax-select]', function()
       {
         $.wp_ajax.init( $(this) );
+        $.wp_ajax.target = $('[data-'+ $(this).data('target') + ']');
         $.wp_ajax.make_request( $.wp_ajax );
       })
 

@@ -11,13 +11,13 @@ class Stockist
 
   public function initActions()
   {
-    add_action( 'wp_ajax_load_stockist_meta_form', array( $this, 'loadStockistMetaForm' ) );
-    add_action( 'wp_ajax_nopriv_load_stockist_meta_form', array( $this, 'loadStockistMetaForm' ) );
+    add_action( 'wp_ajax_loadStockistMetaForm', array( $this, 'loadStockistMetaForm' ) );
+    add_action( 'wp_ajax_nopriv_loadStockistMetaForm', array( $this, 'loadStockistMetaForm' ) );
   }
 
   public function stkMetaBoxGenerator( $post, $meta_box )
   {
-    $fileName = STOCKIST_PLUGIN_VIEWS_PATH . '/form-' . sanitize_title_with_dashes(str_replace('_', '-', $meta_box[ 'id' ])) . '.php';
+    $fileName = STOCKIST_PLUGIN_VIEWS_PATH . '/form-' . sanitize_title_with_dashes( str_replace('_', '-', $meta_box[ 'id' ])) . '.php';
 
     if( file_exists( $fileName ) )
     {
@@ -84,32 +84,23 @@ class Stockist
   public function loadStockistMetaForm()
   {
     $data = $_POST;
-    $resp = new Ajax_Response( $data['action_id'], true );
+    $resp = new Ajax_Response( $data['action'], true );
 
     if( isset( $data['stockist_meta_type'] ) )
     {
+      $fields = Stockist_Utils::loadPluginView('form-stockists-meta-fields.php', $data );
+
+      if( isset( $fields ) )
+      {
+        $resp->set_status(true);
+      }
+
       $resp->set_data(
-          array( 'stockist_meta_fields' => $this->getStockistMetaFields( $data['stockist_meta_type'] ) )
+          array( 'stockist_meta_fields' => $fields )
       );
     }
 
     echo $resp->encode_response();
     die();
-  }
-
-  public function getStockistMetaFields( $type )
-  {
-    $fields = '';
-
-    if( $type == 1 )
-    {
-      $fields = 'hello world';
-    }
-    else
-    {
-
-    }
-
-    return $fields;
   }
 }
