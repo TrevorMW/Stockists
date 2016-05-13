@@ -9,45 +9,12 @@
 $options = new Stockist_Options(); ?>
 
 <div class="wrapper form-element">
-  <select name="stockist_meta_type" data-ajax-select data-action="loadStockistMetaForm">
+  <select name="stockist_meta_type" data-ajax-select data-action="loadStockistMetaForm" data-target="stk-form-placeholder">
     <?php //echo $options->getStockistMetaTypes(); ?>
     <option value="" selected="selected">Choose a Stockist Type</option>
     <option value="1" >Digital Stockist</option>
     <option value="2">Brick &amp; Mortar Stockist</option>
   </select>
 </div>
-<hr />
 <div data-stk-form-placeholder></div>
 
-<!-- <div class="stk-form-fields">
-  <input type="text"
-         name=""
-         value=""
-         data-stk-map-address=""
-         placeholder="Enter your address to place a point" />
-
-  <div data-google-map="" style="border:1px solid #eee; border-left:0; border-right:0; height:300px;"></div>
-  <fieldset>
-    <div>
-      <input type="text"
-             name=""
-             value=""
-             data-stk-post-lat
-             placeholder="Latitude" />
-    </div>
-    <div>
-      <input type="text"
-             name=""
-             value=""
-             data-stk-post-lng
-             placeholder="Longitude" />
-    </div>
-    <div>
-      <input type="text"
-             name=""
-             value=""
-             data-stk-post-placeID
-             placeholder="Place ID" />
-    </div>
-  </fieldset>
-</div> -->

@@ -42,6 +42,6 @@ class Ajax_Response
 
   public function encode_response()
   {
-    return json_encode( array( 'status' => $this->status, 'message' => $this->message, 'data' => $this->data, 'action_id' => $this->action, 'callback' => $this->callback  ) );
+    return json_encode( array( 'status' => $this->status, 'message' => $this->message, 'data' => $this->data, 'action_id' => $this->action, 'callback' => $this->action  ) );
   }
 }

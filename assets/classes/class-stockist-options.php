@@ -66,44 +66,7 @@ class Stockist_Options
 
   public function stkBuildOptionsPage()
   {
-    Stockist_Utils::loadPluginView('form-plugin-options.php');
-  }
-
-  public function stkBuildOptionsFields()
-  {
-    register_setting( 'stockistsOptions', 'stk_settings' );
-
-    add_settings_section(
-      'stockistsApiOptions',
-      'Section Description',
-      'stkRenderOptionsFields',
-      'stockistsOptions'
-    );
-
-    if( $this->optionNames != null )
-    {
-      foreach( $this->optionNames as $k => $val )
-      {
-        add_settings_field(
-          $k,
-          'Generic somethings..',
-          array( $this, 'stkFieldRenderer' ),
-          'stockistsOptions',
-          'stockistsApiOptions',
-          $val
-        );
-      }
-    }
-  }
-
-  public function stkRenderOptionsFields()
-  {
-
-  }
-
-  public function stkFieldRenderer( $args )
-  {
-
+    echo Stockist_Utils::loadPluginView('form-plugin-options.php');
   }
 
   public function stkSaveApiOptions()
