@@ -9,7 +9,7 @@
 if ( !current_user_can('manage_options') )
   wp_die('You do not have sufficient permissions to access this page.');
 
-$options = new Stockist_Options(); ?>
+$options = new Stockist_Options();  ?>
 
 <div class="wrap">
   <h2><?php echo Stockists::getPluginName() ?> Settings</h2>
@@ -19,7 +19,6 @@ $options = new Stockist_Options(); ?>
       <fieldset class="stk-panel">
         <form method="post" class="stk-options" data-ajax-form data-action="save_api_options">
           <?php wp_nonce_field(); ?>
-          <input type="hidden" name="action" value="save_api_options" />
           <header class="">
             <h2>Stockists API Dependencies</h2>
           </header>
@@ -59,9 +58,8 @@ $options = new Stockist_Options(); ?>
     </div>
     <div class="table-cell half">
       <fieldset class="stk-panel">
-        <form method="post" class="stk-options" data-ajax-form data-action="save_stk_data_options">
+        <form method="post" class="stk-options" data-ajax-form data-action="save_api_options">
           <?php wp_nonce_field(); ?>
-          <input type="hidden" name="action" value="save_stk_data_options" />
           <header>
             <h2>Stockist Data Types</h2>
           </header>
@@ -71,10 +69,12 @@ $options = new Stockist_Options(); ?>
               <li class="full clear">
                 <div class="new-checkbox">
                   <label for="type1" class="checkbox">
+                    <input type="hidden" name="stk_settings[stk_allow_digital]" value="0">
                     <input type="checkbox"
                            class="input-checkbox"
-                           name="stk_allow_digital"
+                           name="stk_settings[stk_allow_digital]"
                            value="1"
+                           <?php $options->loadedOptions['stk_allow_digital'] == 1 ? print 'checked' : '' ; ?>
                            id="type1" data-stockist-type />
                     <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
                     <small>Allow Digital Stockists?</small>
@@ -85,10 +85,12 @@ $options = new Stockist_Options(); ?>
               <li class="full clear">
                 <div class="new-checkbox">
                   <label for="type2" class="checkbox">
+                    <input type="hidden" name="stk_settings[stk_allow_website]" value="0">
                     <input type="checkbox"
                            class="input-checkbox"
-                           name="stk_allow_website"
+                           name="stk_settings[stk_allow_website]"
                            value="1"
+                          <?php $options->loadedOptions['stk_allow_website'] == 1 ? print 'checked' : '' ; ?>
                            id="type2" data-stockist-type />
                     <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
                     <small>Allow website URL for all stockists?</small>
@@ -108,9 +110,8 @@ $options = new Stockist_Options(); ?>
   </div>
 
   <fieldset class="stk-panel">
-    <form method="post" class="stk-options" data-ajax-form data-action="save_stk_layout_options">
+    <form method="post" class="stk-options" data-ajax-form data-action="save_api_options">
       <?php wp_nonce_field(); ?>
-      <input type="hidden" name="action" value="save_stk_layout_options" />
       <header class="">
         <h2>Stockist Layout Options</h2>
       </header>

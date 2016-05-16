@@ -20,7 +20,6 @@ class Stockists
 
     if( is_admin() )
     {
-      add_action( 'admin_init', array( $options, 'stkBuildOptionsFields' ) );
       add_action( 'admin_menu', array( $options, 'stkBuildOptions' ) );
     }
 

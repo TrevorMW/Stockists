@@ -13,7 +13,10 @@ class Stockist_Utils
   {
     $file = STOCKIST_PLUGIN_DIR . 'assets/views/' . $name ;
 
-    extract( $params, EXTR_SKIP );
+    if( $params != null)
+    {
+      extract( $params, EXTR_SKIP );
+    }
 
     if( file_exists( $file ) )
     {

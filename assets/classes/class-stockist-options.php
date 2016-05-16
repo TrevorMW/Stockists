@@ -14,16 +14,10 @@ class Stockist_Options
   public function __construct()
   {
     $this->optionNames = [
-      'stk_google_maps_js_api_key' => [
-        'type'           => 'text',
-        'label'          => 'Google Maps API Key (JS):',
-        'settings_group' => ''
-      ],
-      'stk_google_maps_theme_json' => [
-        'type'           => 'textarea',
-        'label'          => 'Google Maps API Key (JS):',
-        'settings_group' => ''
-      ]
+      'stk_google_maps_js_api_key',
+      'stk_google_maps_theme_json',
+      'stk_allow_digital',
+      'stk_allow_website'
     ];
     $this->loadOptions();
   }
@@ -34,8 +28,6 @@ class Stockist_Options
     $stockist->initActions();
 
     add_action( 'wp_ajax_save_api_options', array( $this, 'stkSaveApiOptions' ) );
-    add_action( 'wp_ajax_save_api_options', array( $this, 'save_stk_data_options' ) );
-    add_action( 'wp_ajax_save_api_options', array( $this, 'save_stk_layout_options' ) );
   }
 
   public function loadOptions()
@@ -44,7 +36,7 @@ class Stockist_Options
 
     if( is_array( $this->optionNames ) )
     {
-      foreach( $this->optionNames as $optionName => $values )
+      foreach( $this->optionNames as $optionName )
       {
         $optionVal = get_option( $optionName );
 
