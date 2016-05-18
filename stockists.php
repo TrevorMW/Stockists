@@ -23,6 +23,7 @@ define( 'STOCKIST_PLUGIN_FILE', __FILE__ );
 define( 'STOCKIST_PLUGIN_ASSETS', STOCKIST_PLUGIN_DIR . 'assets/' );
 define( 'STOCKIST_PLUGIN_JS_PATH', plugin_dir_url( __FILE__ ). 'assets/js' );
 define( 'STOCKIST_PLUGIN_CSS_PATH',  plugin_dir_url( __FILE__ ) . 'assets/css' );
+define( 'STOCKIST_PLUGIN_MEDIA_PATH',  plugin_dir_url( __FILE__ ) . 'assets/media' );
 define( 'STOCKIST_PLUGIN_VIEWS_PATH',  STOCKIST_PLUGIN_ASSETS . 'views' );
 
 // LOAD CLASSES JIT

@@ -8,6 +8,15 @@
  */
 class Stockist
 {
+  public $postmeta;
+
+  public function __construct( $id = null )
+  {
+    if( $id != null )
+    {
+      $this->postmeta = get_post_meta( (int) $id );
+    }
+  }
 
   public function initActions()
   {
@@ -88,7 +97,9 @@ class Stockist
 
     if( isset( $data['stockist_meta_type'] ) )
     {
-      $fields = Stockist_Utils::loadPluginView('form-stockists-meta-fields.php', $data );
+      update_post_meta( (int) $data['postID'], 'stockist_type', $data['stockist_meta_type'] );
+
+      $fields = Stockist_Utils::loadPluginView( 'form-stockists-meta-fields.php', $data );
 
       if( isset( $fields ) )
       {

@@ -90,7 +90,7 @@ $options = new Stockist_Options();  ?>
                            class="input-checkbox"
                            name="stk_settings[stk_allow_website]"
                            value="1"
-                          <?php $options->loadedOptions['stk_allow_website'] == 1 ? print 'checked' : '' ; ?>
+                           <?php $options->loadedOptions['stk_allow_website'] == 1 ? print 'checked' : '' ; ?>
                            id="type2" data-stockist-type />
                     <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
                     <small>Allow website URL for all stockists?</small>
@@ -118,41 +118,51 @@ $options = new Stockist_Options();  ?>
       <div class="panel-body">
         <div data-ajax-overlay><div><i class="fa fa-spin fa-spinner"></i></div></div>
         <ul>
-          <li class="half">
-            <div class="new-checkbox">
+          <li class="auto">
+            <div class="style-checkbox">
               <label for="layout1" class="checkbox">
                 <input type="radio"
                        class="input-checkbox"
-                       name="stk_layout"
+                       name="stk_settings[stk_layout]"
                        value="1"
+                       <?php $options->loadedOptions['stk_layout'] == 1 ? print 'checked' : '' ; ?>
                        id="layout1" data-stockist-type />
-                <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
-                <small>Stockists By Country &amp; City</small>
+                <div class="checkbox-overwrite-parent">
+                  <div class="checkbox-overwrite"><img src="<?php echo STOCKIST_PLUGIN_MEDIA_PATH . '/basic-grid.png' ?>" alt="" /></div>
+                  <span>State & Country List</span>
+                </div>
+
               </label>
             </div>
           </li>
 
-          <li class="half right">
-            <div class="new-checkbox">
+          <li class="auto ">
+            <div class="style-checkbox">
               <label for="layout2" class="checkbox">
                 <input type="radio"
                        class="input-checkbox"
-                       name="stk_layout"
+                       name="stk_settings[stk_layout]"
                        value="2"
+                       <?php $options->loadedOptions['stk_layout'] == 2 ? print 'checked' : '' ; ?>
                        id="layout2" data-stockist-type />
-                <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
-                <small>Stockists List w. Map (horizontal)</small>
+                <div class="checkbox-overwrite-parent">
+                    <div class="checkbox-overwrite">
+                      <img src="<?php echo STOCKIST_PLUGIN_MEDIA_PATH . '/map-w-list-horizontal.png' ?>" alt="" />
+                    </div>
+                    <span>State & Country List</span>
+                </div>
               </label>
             </div>
           </li>
 
-          <li class="half">
+          <li class="auto">
             <div class="new-checkbox">
               <label for="layout3" class="checkbox">
                 <input type="radio"
                        class="input-checkbox"
-                       name="stk_layout"
+                       name="stk_settings[stk_layout]"
                        value="3"
+                       <?php $options->loadedOptions['stk_layout'] == 3 ? print 'checked' : '' ; ?>
                        id="layout3" data-stockist-type />
                 <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
                 <small>Stockists List w. Map (vertical)</small>
@@ -165,8 +175,9 @@ $options = new Stockist_Options();  ?>
               <label for="layout4" class="checkbox">
                 <input type="radio"
                        class="input-checkbox"
-                       name="stk_layout"
+                       name="stk_settings[stk_layout]"
                        value="4"
+                       <?php $options->loadedOptions['stk_layout'] == 4 ? print 'checked' : '' ; ?>
                        id="layout4" data-stockist-type />
                 <div class="checkbox-overwrite-parent"><div class="checkbox-overwrite"></div></div>
                 <small>Brick and Mortar Stockist?</small>

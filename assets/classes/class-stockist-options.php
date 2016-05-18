@@ -17,8 +17,10 @@ class Stockist_Options
       'stk_google_maps_js_api_key',
       'stk_google_maps_theme_json',
       'stk_allow_digital',
-      'stk_allow_website'
+      'stk_allow_website',
+      'stk_layout'
     ];
+
     $this->loadOptions();
   }
 
@@ -32,6 +34,8 @@ class Stockist_Options
 
   public function loadOptions()
   {
+    global $post;
+
     $options = array();
 
     if( is_array( $this->optionNames ) )
@@ -39,6 +43,11 @@ class Stockist_Options
       foreach( $this->optionNames as $optionName )
       {
         $optionVal = get_option( $optionName );
+
+        if( $optionVal == false )
+        {
+          $optionVal = get_post_meta( $post->ID, $optionName );
+        }
 
         if( $optionVal != false )
         {

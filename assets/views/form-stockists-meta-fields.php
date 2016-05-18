@@ -6,16 +6,18 @@
  * @copyright   Copyright © 2016 Blue Acorn, Inc.
  */
 
-if( $stockist_meta_type == 1 ){ ?>
+var_dump( $stockist_meta_type );
 
-<div class="stk-form-fields">
-  <input type="text"
-         name="stockist_url"
-         value=""
-         data-stk-map-address=""
-         placeholder="Enter Stockist Website Url" />
+if( $stockist_meta_type == 2 ){ ?>
 
-</div>
+  <div class="stk-form-fields">
+    <input type="text"
+           name="stockist_url"
+           value=""
+           data-stk-map-address=""
+           placeholder="Enter Stockist Website Url" />
+
+  </div>
 
 <?php } else { ?>
 
@@ -26,7 +28,7 @@ if( $stockist_meta_type == 1 ){ ?>
            data-stk-map-address=""
            placeholder="Enter your address to place a point" />
 
-    <div data-google-map="" style="border:1px solid #eee; border-left:0; border-right:0; height:300px;"></div>
+    <div data-google-map style="border:1px solid #eee; border-left:0; border-right:0; height:300px;"></div>
     <fieldset>
       <div>
         <input type="text"

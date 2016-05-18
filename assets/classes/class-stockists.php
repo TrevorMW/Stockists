@@ -95,8 +95,7 @@ class Stockists
                         STOCKIST_PLUGIN_CSS_PATH.'/stockists-admin.css' );
     wp_register_style( 'fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' );
     wp_register_script( 'stockistsMaps',
-      'https://maps.googleapis.com/maps/api/js?key='.$option->loadedOptions['stk_google_maps_js_api_key']
-      .'&callback=fireLoadMap',
+      'https://maps.googleapis.com/maps/api/js?key='.$option->loadedOptions['stk_google_maps_js_api_key'],
       array('jquery'),
       null,
       true );

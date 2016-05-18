@@ -6,51 +6,42 @@
       maps:{
         el:'',
         map:'',
-        update_lat:'',
-        update_lng:'',
         defaults:{
-          center:{ lat: 32.7833, lng: -79.9333 },
+          center:{ lat:32.7833, lng:-79.9333 },
           zoom:14
         },
         options:{},
-        init:function( el, options, lat, lng )
+        init:function( el, options )
         {
-          this.el = el;
-
+          this.el      = el;
           this.options = $.extend( {}, this.defaults, options )
-          this.map     = new google.maps.Map( el[0], this.options );
+          this.map     = new google.maps.Map( el[ 0 ], this.options );
 
-          if( this.el.data('drag') )
+          this.set_point( this.map, this.options.center, true );
+        },
+        set_point:function( map, center, draggable )
+        {
+          var marker = new google.maps.Marker( {
+            position:center,
+            map:map,
+            draggable:draggable
+          } );
+
+          if( draggable )
           {
-            this.set_draggable_point();
-            this.update_lat = lat
-            this.update_lng = lng
+            google.maps.event.addListener( marker, 'dragend', function( event )
+            {
+              $.maps.update_lat.val( this.getPosition().lat().toFixed( 8 ) );
+              $.maps.update_lng.val( this.getPosition().lng().toFixed( 8 ) );
+            });
           }
-
-          $(document).on( 'maps:load', this, function( e )
+        },
+        loadMaps:function()
+        {
+          $('[data-google-map]' ).each( function()
           {
-
+            $.maps.init( $(this), $(this ).data('options') )
           })
-        },
-        set_draggable_point:function()
-        {
-          var marker = new google.maps.Marker({
-            position: this.options.center,
-            map: this.map,
-            draggable:true
-          });
-
-          google.maps.event.addListener( marker, 'dragend', function( event )
-          {
-            $.fn.maps.update_lat.val( this.getPosition().lat().toFixed(8) );
-            $.fn.maps.update_lng.val( this.getPosition().lng().toFixed(8) );
-          });
-        },
-        refresh_map:function( data )
-        {
-          this.options.center.lat = data.lat
-          this.options.center.lng = data.lng
-          this.init( this.el, this.options )
         }
       },
       wp_ajax:{
@@ -59,6 +50,8 @@
         form_valid:true,
         fields:null,
         target:null,
+        formData:null,
+        customData:null,
         init:function( el )
         {
           if( el[0] != undefined )
@@ -67,12 +60,13 @@
             this.action       = el.data('action');
             this.pre_callback = el.data('pre-callback');
             this.target       = $('[data-'+ el.data('target') + ']');
-            this.fields       = this.el.find('[data-validate]')
+            this.fields       = this.el.find('[data-validate]');
+            this.customData   = el.data();
           }
 
           $.ajax_overlay.init( $(this.el).find('[data-ajax-overlay]') );
         },
-        make_request: function( instance )
+        make_request: function( instance, before )
         {
           if( this.fields.length > 0 )
             $.validation.clear_errors( this );
@@ -80,14 +74,19 @@
           $.validation.validate_form( instance );
           $(document).trigger('ajax_overlay:show');
 
-          var formData = this.el.serialize() + '&action=' + this.action ;
+          this.formData = this.el.serialize() + '&action=' + this.action;
+
+          if( typeof before == 'function' )
+          {
+            this.formData = before( this, this.formData );
+          }
 
           if( this.form_valid )
           {
             $.ajax( ajaxurl, {
               processData:false,
               type: "POST",
-              data: formData,
+              data: this.formData,
               success:function( response )
               {
                 setTimeout( function ()
@@ -109,10 +108,6 @@
         }
       },
       callback_bank:{
-        filters:
-        {
-
-        },
         callbacks:{
           loadStockistMetaForm:function( resp, inst )
           {
@@ -233,9 +228,17 @@
       {
         $.wp_ajax.init( $(this) );
         $.wp_ajax.target = $('[data-'+ $(this).data('target') + ']');
-        $.wp_ajax.make_request( $.wp_ajax );
+
+        $.wp_ajax.make_request( $.wp_ajax, function( inst, data )
+        {
+          return inst.formData + '&postID=' + inst.customData.postid;
+        }, $(this) );
       })
 
+      $(document).on( 'maps:load', function()
+      {
+        $.maps.loadMaps();
+      })
     });
 
   })
